@@ -29,6 +29,6 @@ while true do
   let empty = []
   in
   let res = create_newlist empty (Str.split (Str.regexp "[ \t]") str) in
-  if check_argument res = true then print_endline "CA MARCHE"
+  if check_argument res = true then print_endline "CA MARCHE" ; print_endline (Hour.calculate_hour (Str.split (Str.regexp ":") "19:30") 120)
 done;
 ;;

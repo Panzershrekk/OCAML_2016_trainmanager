@@ -3,6 +3,9 @@ module type HOUR =
     val string_to_int_cmp : string -> int -> int
     val verify_hour : string list -> bool
     val hour_is_valid : string -> bool
+    val add_minute : int -> string
+    val add_hour : int -> string
+    val calculate_hour : string list -> int -> string
   end
 
 module Hour : HOUR =
@@ -20,5 +23,13 @@ module Hour : HOUR =
     then true else false;;
 
   let hour_is_valid hour = verify_hour (Str.split (Str.regexp ":") hour);;
+
+  let add_minute minute = if minute < 10 then "0" ^ string_of_int minute else string_of_int minute;;
+
+  let add_hour hour = if hour mod 24 < 10  then "0" ^ string_of_int (hour mod 24) else string_of_int (hour mod 24)
+
+  let calculate_hour hour add = add_hour ((string_to_int_cmp (List.hd hour) ~-1) + ((add + (string_to_int_cmp (List.nth hour 1) ~-1)) / 60)) ^ ":" ^
+
+                                add_minute (((string_to_int_cmp (List.nth hour 1) ~-1) + add) mod 60);;
 
 end;;
