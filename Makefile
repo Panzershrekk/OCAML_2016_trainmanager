@@ -2,9 +2,13 @@ NAME = trainmanager
 
 
 ML = 	date.ml \
+			hour.ml \
+			cities.ml \
 			main.ml
 
-MLI = date.mli
+MLI = date.mli \
+			cities.mli \
+			hour.mli
 
 
 CMI = $(MLI:.mli=.cmi)

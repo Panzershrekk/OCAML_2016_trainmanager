@@ -1,5 +1,7 @@
 open Str
 open Date
+open Hour
+open Cities
 
 let rec print_my_list list_str = match list_str with
   | [] -> ()
@@ -12,11 +14,12 @@ let rec create_newlist new_list = function
 
 let check_argument list =
     let rec aux acc = function
+      | head::tail when List.length list >= 6 -> false
       | head::tail when acc = 0 -> if ((String.equal head "create" = true || String.equal head "list" || String.equal head "delete") && aux (acc + 1) tail = true) then true else false
       | head::tail when acc = 1 -> if ((String.equal head "TGV" = true || String.equal head "Thalys" || String.equal head "Eurostar") && aux (acc + 1) tail = true) then true else false
       | head::tail when acc = 2 -> if (Date.date_is_valid head = true && aux (acc + 1) tail = true) then true else false
-      | head::tail when acc = 3 -> if (String.equal head "tgv" = true && aux (acc + 1) tail = true) then true else false
-      | head::tail when acc = 4 -> if String.equal head "tgv" = true then true else false
+      | head::tail when acc = 3 -> if (Hour.hour_is_valid head = true && aux (acc + 1) tail = true) then true else false
+      | head::tail when acc = 4 -> if Cities.cities_are_valid head = true then true else false
       | _ -> false
 in aux 0 list;;
 

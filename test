@@ -1,0 +1,10 @@
+
+///////// TGV \\\\\\\\\\\
+
+create TGV 01-02-2012 19:39  Brest,Lille *GOOD*
+create TGV 01-02-2012 24:39 tgv *BAD*
+create TGV 199-02-2012 19:39 tgv *BAD*
+create TGV 06-12-2012 01:62 tgv *BAD*
+create TGV 09-17-2012 19:39 tgv *BAD*
+create TGV 00-02-2012 19:39 tgv *BAD*
+create TGV 05-05-2012 00:00 tgv *GOOD*
