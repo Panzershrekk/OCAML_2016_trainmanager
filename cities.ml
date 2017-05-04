@@ -1,5 +1,13 @@
 module type CITIES =
   sig
+    type distance = (string * string * int)
+
+    val cities_distance : distance list
+
+    val get_departure : distance -> string
+    val get_arrival : distance -> string
+    val get_distance : distance -> int
+
     val cities_available : string list
     val check_with_city : string -> string list -> bool
     val city_exists : string list -> bool
@@ -8,6 +16,33 @@ module type CITIES =
 
 module Cities : CITIES =
   struct
+
+  type distance = (string * string * int);;
+
+  let cities_distance = [
+                        ("Brest", "Rennes", 248);
+                        ("Rennes", "Le Mans", 163);
+                        ("Le Mans", "Nantes", 183);
+                        ("Le Mans", "Paris", 201);
+                        ("Paris","Bordeaux",568);
+                        ("Lille", "Brussels", 106);
+                        ("Lille","London",269);
+                        ("Paris", "Lille", 225);
+                        ("Brussels","Liege",104);
+                        ("Paris", "Le Havre",230);
+                        ("Liege","Cologne", 118);
+                        ("Cologne","Essen",81);
+                        ("Paris", "Nancy",327);
+                        ("Dijon","Nancy", 226);
+                        ("Nancy","Strasbourg",149);
+                        ("Paris","Strasbourg",449);
+                        ("Brussels","Amsterdam",211);
+                        ("Dijon","Strasbourg",309)
+                        ]
+
+  let get_departure (d, _, _) = d
+  let get_arrival (_, a, _) = a
+  let get_distance (_, _, dis) = dis
 
   let cities_available = ["Brest"; "Le Havre"; "Lille"; "Paris"; "Strasbourg"; "Nancy"; "Dijon"; "Lyon";
                           "Nice"; "Marseille"; "Montpellier"; "Perpignan"; "Bordeaux";

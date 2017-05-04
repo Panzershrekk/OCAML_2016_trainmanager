@@ -1,7 +1,10 @@
-open Str
 open Date
 open Hour
 open Cities
+open Train
+
+module MyTgvTrain = MyTrain (TgvTrain);;
+module MyEuroTrain = MyTrain (EuroTrain);;
 
 let rec print_my_list list_str = match list_str with
   | [] -> ()
@@ -29,6 +32,14 @@ while true do
   let empty = []
   in
   let res = create_newlist empty (Str.split (Str.regexp "[ \t]") str) in
-  if check_argument res = true then print_endline "CA MARCHE" ; print_endline (Hour.calculate_hour (Str.split (Str.regexp ":") "19:30") 120)
+  if check_argument res = true then print_endline "CA MARCHE" ; print_int MyTgvTrain.get_train_speed
 done;
 ;;
+
+(*print_endline (Hour.calculate_hour (Str.split (Str.regexp ":") "07:55") 100)*)
+
+(*
+v = d/t
+t = d/v
+d = v * t
+*)

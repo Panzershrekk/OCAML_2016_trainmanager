@@ -4,6 +4,7 @@ NAME = trainmanager
 ML = 	date.ml \
 			hour.ml \
 			cities.ml \
+			train.ml \
 			main.ml
 
 MLI = date.mli \
@@ -17,6 +18,7 @@ CMX = $(ML:.ml=.cmx)
 
 
 OCAMLDPE = ocamldep
+CAMLFLAGS = -w Aelz -warn-error A
 OCAMLC = ocamlc $(CAMLFLAGS)
 OCAMLOPT = ocamlopt $(CAMLFLAGS) str.cmxa
 OCAMLDOC = ocamldoc -html -d $(ROOT)/doc
