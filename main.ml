@@ -2,9 +2,10 @@ open Date
 open Hour
 open Cities
 open Train
+open Trip
 
-(*module MyTgvTrain = MyTrain (TgvTrain);;
-module MyEuroTrain = MyTrain (EuroTrain);;*)
+module MyTrip = MakeTrip (Train);;
+(*module MyEuroTrain = MyTrain (EuroTrain);;*)
 
 let train_list = []
 
@@ -29,6 +30,8 @@ let check_argument list =
       | head::tail when acc = 4 -> if Cities.cities_are_valid head = true then true else false
       | _ -> false
 in aux 0 list;;
+
+MyTrip.print_trip_list (MyTrip.create_trip "21-01-2107" "07:55" ["Paris"; "Lille"; "London"]);;
 
 let _ =
 while true do
