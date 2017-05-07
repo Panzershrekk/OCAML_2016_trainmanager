@@ -12,6 +12,7 @@ module type CITIES =
     val check_with_city : string -> string list -> bool
     val city_exists : string list -> bool
     val cities_are_valid : string -> bool
+    val get_distance_link : string -> string -> distance list -> int
   end
 
 module Cities : CITIES =
@@ -57,4 +58,8 @@ module Cities : CITIES =
     | head::tail -> if (check_with_city head cities_available = true && city_exists tail = true) then true else false
 
   let cities_are_valid cities = city_exists (Str.split (Str.regexp ",") cities);;
+
+  let rec get_distance_link city_1 city_2 = function
+    | [] -> 0
+    | head::tail -> if (city_1 = (get_departure head) && city_2 = (get_arrival head)) then get_distance head else get_distance_link city_1 city_2 tail
 end;;

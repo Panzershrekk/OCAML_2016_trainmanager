@@ -12,6 +12,8 @@ module type CITIES =
     val check_with_city : string -> string list -> bool
     val city_exists : string list -> bool
     val cities_are_valid : string -> bool
+
+    val get_distance_link : string -> string -> distance list -> int
   end
 
 module Cities : CITIES

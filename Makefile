@@ -5,10 +5,12 @@ ML = 	date.ml \
 			hour.ml \
 			cities.ml \
 			train.ml \
+			trip.ml \
 			main.ml
 
 MLI = date.mli \
 			cities.mli \
+			train.mli \
 			hour.mli
 
 

@@ -2,31 +2,10 @@
 ///////// TGV \\\\\\\\\\\
 
 create TGV 01-02-2012 19:39  Brest,Lille *GOOD*
+create Eurostar 01-02-2012 19:39  Brest,Lille
 create TGV 01-02-2012 24:39 tgv *BAD*
 create TGV 199-02-2012 19:39 tgv *BAD*
 create TGV 06-12-2012 01:62 tgv *BAD*
 create TGV 09-17-2012 19:39 tgv *BAD*
 create TGV 00-02-2012 19:39 tgv *BAD*
 create TGV 05-05-2012 00:00 tgv *GOOD*
-
-module type TRAIN =
-  sig
-    type name
-    type t = name
-
-    val get_speed : unit
-  end;;
-
-module type TYPETRAIN =
-  sig
-    type t
-    val test : unit
-  end;;
-
-module type MYTRAIN = functor (Train : TRAIN) -> TYPETRAIN with type t = Train.t;;
-
-module MyTrain : MYTRAIN
-
-
-
-("Paris","Strasbourg",449);("Brussels","Amsterdam",211);("Dijon","Strasbourg",309)

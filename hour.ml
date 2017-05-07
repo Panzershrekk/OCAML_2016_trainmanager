@@ -29,7 +29,6 @@ module Hour : HOUR =
   let add_hour hour = if hour mod 24 < 10  then "0" ^ string_of_int (hour mod 24) else string_of_int (hour mod 24)
 
   let calculate_hour hour add = add_hour ((string_to_int_cmp (List.hd hour) ~-1) + ((add + (string_to_int_cmp (List.nth hour 1) ~-1)) / 60)) ^ ":" ^
-
                                 add_minute (((string_to_int_cmp (List.nth hour 1) ~-1) + add) mod 60);;
 
 end;;

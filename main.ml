@@ -3,12 +3,16 @@ open Hour
 open Cities
 open Train
 
-module MyTgvTrain = MyTrain (TgvTrain);;
-module MyEuroTrain = MyTrain (EuroTrain);;
+(*module MyTgvTrain = MyTrain (TgvTrain);;
+module MyEuroTrain = MyTrain (EuroTrain);;*)
+
+let train_list = []
 
 let rec print_my_list list_str = match list_str with
   | [] -> ()
   | head::tail -> print_endline head ; print_my_list tail;;
+
+let append_item lst a = lst @ [a]
 
 let rec create_newlist new_list = function
   | [] -> List.rev new_list
@@ -29,10 +33,13 @@ in aux 0 list;;
 let _ =
 while true do
   let str = read_line () in
-  let empty = []
-  in
-  let res = create_newlist empty (Str.split (Str.regexp "[ \t]") str) in
-  if check_argument res = true then print_endline "CA MARCHE" ; print_int MyTgvTrain.get_train_speed
+    let empty = []
+      in
+    let res = create_newlist empty (Str.split (Str.regexp "[ \t]") str) in
+    if check_argument res = true
+      then Train.print_all_train  (append_item train_list (Train.create_train (List.nth res 1)))(* ; Train.print_all_train train_list*)
+    else
+      print_endline ""
 done;
 ;;
 
