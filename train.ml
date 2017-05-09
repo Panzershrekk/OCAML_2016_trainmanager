@@ -1,6 +1,7 @@
 module type TRAIN =
   sig
     type train = (string * string)
+    val random_between : int -> int -> int
     val create_train : string -> train
 
     val get_speed : train -> int
@@ -15,7 +16,9 @@ module Train : TRAIN =
   struct
       type train = (string * string)
 
-      let create_train type_train = (type_train, string_of_int (Random.int 10000))
+      let random_between first_born snd_born = (Random.int (snd_born - first_born) + first_born)
+
+      let create_train type_train = (type_train, string_of_int (random_between 1000 10000))
 
       let get_speed (t, _) = if t = "TGV" then 230 else
                              if t = "Thalys" then 210 else
@@ -33,54 +36,3 @@ module Train : TRAIN =
         | head::tail -> print_train head ; print_all_train tail
 
   end;;
-(*module type TRAIN=
-  sig
-    type name
-    type t = name
-
-    val get_speed : int
-  end;;
-
-module type TYPETRAIN =
-  sig
-  	type t
-
-    val get_train_speed : int
-  	end;;
-
-module type MYTRAIN = functor (Train : TRAIN) -> TYPETRAIN with type t = Train.t;;
-
-module TgvTrain =
-  struct
-    type name = string
-    type t = name
-    let t = "TGV"
-
-    let get_speed = 230
-end;;
-
-module ThalysTrain =
-  struct
-    type name = string
-    type t = name
-    let t = "Thalys"
-
-    let get_speed = 210
-end;;
-
-module EuroTrain =
-  struct
-    type name = string
-    type t = name
-    let t = "Eurostar"
-
-    let get_speed = 160
-end;;
-
-module MyTrain : MYTRAIN = functor (Train : TRAIN) ->
-	struct
-		type t = Train.t
-
-    let get_train_speed  = Train.get_speed
-	end;;
-*)

@@ -5,9 +5,9 @@ open Train
 open Trip
 
 module MyTrip = MakeTrip (Train);;
-(*module MyEuroTrain = MyTrain (EuroTrain);;*)
 
-let train_list = []
+let trip_list = []
+let empty = []
 
 let rec print_my_list list_str = match list_str with
   | [] -> ()
@@ -23,33 +23,36 @@ let rec create_newlist new_list = function
 let check_argument list =
     let rec aux acc = function
       | head::tail when List.length list >= 6 -> false
-      | head::tail when acc = 0 -> if ((String.equal head "create" = true || String.equal head "list" || String.equal head "delete") && aux (acc + 1) tail = true) then true else false
+      | head::tail when acc = 0 && List.length list = 1 -> if String.equal head "list" = true then true else false
+      | head::tail when acc = 0 && List.length list = 2 -> if String.equal head "delete" = true then true else false
+      | head::tail when acc = 0 -> if (String.equal head "create" = true && aux (acc + 1) tail = true) then true else false
       | head::tail when acc = 1 -> if ((String.equal head "TGV" = true || String.equal head "Thalys" || String.equal head "Eurostar") && aux (acc + 1) tail = true) then true else false
       | head::tail when acc = 2 -> if (Date.date_is_valid head = true && aux (acc + 1) tail = true) then true else false
       | head::tail when acc = 3 -> if (Hour.hour_is_valid head = true && aux (acc + 1) tail = true) then true else false
-      | head::tail when acc = 4 -> if Cities.cities_are_valid head = true then true else false
+      | head::tail when acc = 4 && List.nth list 1 = "TGV" -> if Cities.cities_are_valid head = true then true else false
+      | head::tail when acc = 4 && List.nth list 1 = "Thalys" -> if Cities.cities_are_valid_for_thalys head = true then true else false
+      | head::tail when acc = 4 && List.nth list 1 = "Eurostar" -> if Cities.cities_are_valid_for_Eurostar head = true then true else false
+
       | _ -> false
 in aux 0 list;;
 
-MyTrip.print_trip_list (MyTrip.create_trip "21-01-2107" "07:55" ["Paris"; "Lille"; "London"]);;
+let check_command str train_list = match (List.nth str 0) with
+  | "create" -> append_item train_list (MyTrip.create_whole (Train.create_train (List.nth str 1)) (MyTrip.create_trip (List.nth str 2) (List.nth str 3) (List.nth str 1) (Str.split (Str.regexp ",") (List.nth str 4))))
+  | "list" -> MyTrip.print_whole_list train_list ; train_list
+  | "delete" -> train_list
+  | _ -> train_list
 
-let _ =
-while true do
-  let str = read_line () in
-    let empty = []
-      in
-    let res = create_newlist empty (Str.split (Str.regexp "[ \t]") str) in
-    if check_argument res = true
-      then Train.print_all_train  (append_item train_list (Train.create_train (List.nth res 1)))(* ; Train.print_all_train train_list*)
+let rec train_manager train_list =
+let str = read_line ()
+in
+  let res = create_newlist empty (Str.split (Str.regexp "[ \t]") str)
+in
+  if check_argument res = true
+    then
+      train_manager (check_command res train_list)
     else
-      print_endline ""
-done;
+      train_manager train_list
 ;;
 
-(*print_endline (Hour.calculate_hour (Str.split (Str.regexp ":") "07:55") 100)*)
-
-(*
-v = d/t
-t = d/v
-d = v * t
-*)
+let _  =
+	train_manager [];;

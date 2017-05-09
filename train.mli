@@ -1,6 +1,7 @@
 module type TRAIN =
   sig
     type train = (string * string)
+    val random_between : int -> int -> int
     val create_train : string -> train
 
     val get_speed : train -> int

@@ -7,6 +7,6 @@ module type HOUR =
     val add_hour : int -> string
     val round_value : float -> float
     val calculate_hour : string list -> int -> string
-    val calculate_hour_with_distance : string -> int -> string
+    val calculate_hour_with_distance : string -> int -> string -> string
   end
 module Hour : HOUR
