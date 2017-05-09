@@ -14,6 +14,7 @@ module type TRIP =
     val print_trip_list : trip list -> unit
 
     val create_whole : t -> trip list -> t_trip
+    val get_train : t_trip -> t
     val print_whole : t_trip -> unit
     val print_whole_list : t_trip list -> unit
   end
@@ -50,6 +51,8 @@ module MakeTrip : MAKETRIP = functor (Train : TRAIN) ->
       | head::tail -> print_trip head ; print_trip_list tail;;
 
     let create_whole train trip = (train, trip);;
+
+    let get_train (train, _) = train;;
 
     let print_whole (train, trip) = Train.print_train train ; print_trip_list trip;;
 

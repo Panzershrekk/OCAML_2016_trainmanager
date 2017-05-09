@@ -9,6 +9,10 @@ module MyTrip = MakeTrip (Train);;
 let trip_list = []
 let empty = []
 
+let rec remove_trip l n = match l with
+    | [] -> []
+    | head::tail -> if n = Train.get_id (MyTrip.get_train head) then tail else head::remove_trip tail (n);;
+
 let rec print_my_list list_str = match list_str with
   | [] -> ()
   | head::tail -> print_endline head ; print_my_list tail;;
@@ -37,9 +41,10 @@ let check_argument list =
 in aux 0 list;;
 
 let check_command str train_list = match (List.nth str 0) with
-  | "create" -> append_item train_list (MyTrip.create_whole (Train.create_train (List.nth str 1)) (MyTrip.create_trip (List.nth str 2) (List.nth str 3) (List.nth str 1) (Str.split (Str.regexp ",") (List.nth str 4))))
+  | "create" -> let train_list = append_item train_list (MyTrip.create_whole (Train.create_train (List.nth str 1)) (MyTrip.create_trip (List.nth str 2) (List.nth str 3) (List.nth str 1) (Str.split (Str.regexp ",") (List.nth str 4)))) in
+    (print_string "Trip created: "; print_endline (Train.get_id (MyTrip.get_train (List.nth train_list 0) )) ); train_list
   | "list" -> MyTrip.print_whole_list train_list ; train_list
-  | "delete" -> train_list
+  | "delete" -> remove_trip train_list (List.nth str 1)
   | _ -> train_list
 
 let rec train_manager train_list =

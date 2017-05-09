@@ -1,6 +1,11 @@
 
 ///////// TGV \\\\\\\\\\\
 
+create Eurostar 10-01-2010 23:00 Paris,Lille,London
+create Thalys 10-01-2010 23:00 Paris,Lille      
+create TGV 26-01-2102 21:01 Lille,Paris,Strasbourg
+
+
 create TGV 10-05-2017 11:20 Brest,Rennes,Le Mans,Paris
 
 create TGV 01-02-2012 19:39  Brest,Lille *GOOD*
