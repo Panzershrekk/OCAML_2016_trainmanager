@@ -1,14 +1,5 @@
 module type DATE =
   sig
-
-    type day = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
-
-    type month = January | February | March | April | May | June | July | August | September | October | November | December;;
-
-    type date = day * int * month * int
-
-    val next_day : day -> day
-    val next_month : month -> month
     val is_leap_year : int -> bool
     val nb_days : int -> int -> int
     val string_to_int_cmp : string -> int -> int
@@ -18,36 +9,6 @@ module type DATE =
 
 module Date : DATE =
   struct
-
-  type day = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
-
-  type month = January | February | March | April | May | June | July | August | September | October | November | December;;
-
-  type date = day * int * month * int
-
-  let next_day = function
-    | Monday -> Tuesday
-    | Tuesday -> Wednesday
-    | Wednesday -> Thursday
-    | Thursday -> Friday
-    | Friday -> Saturday
-    | Saturday -> Sunday
-    | Sunday -> Monday;;
-
-  let next_month = function
-    | January -> February
-    | February -> March
-    | March -> April
-    | April -> May
-    | May -> June
-    | June -> July
-    | July -> August
-    | August -> September
-    | September -> October
-    | October -> November
-    | November -> December
-    | December -> January;;
-
   let is_leap_year date =
     if date mod 4 = 0 && date mod 100 <> 0 || date mod 400 = 0 then true else false;;
 
@@ -78,5 +39,6 @@ module Date : DATE =
       (string_to_int_cmp (List.nth info_date 2) ~-1) >= 0 && (string_to_int_cmp (List.nth info_date 2) ~-1) <= 9999
     then true else false;;
 
-  let date_is_valid date = verify_date (Str.split (Str.regexp "-") date)
+  let date_is_valid date = verify_date (Str.split (Str.regexp "-") date);;
+
 end;;
