@@ -49,7 +49,7 @@ let check_command str train_list = match (List.nth str 0) with
 let rec train_manager train_list =
 let str = read_line ()
 in
-  let res = create_newlist empty (Str.split (Str.regexp "[ \t]") str)
+  let res = create_newlist empty (Str.bounded_split (Str.regexp "[ \t]+") str 5)
 in
   if check_argument res = true
     then

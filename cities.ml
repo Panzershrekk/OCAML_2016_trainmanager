@@ -96,4 +96,5 @@ module Cities : CITIES =
   let rec get_distance_link city_1 city_2 = function
     | [] -> 0
     | head::tail -> if ( (city_1 = (get_departure head) && city_2 = (get_arrival head)) || (city_2 = (get_departure head) && city_1 = (get_arrival head))) then get_distance head else get_distance_link city_1 city_2 tail
+
 end;;
