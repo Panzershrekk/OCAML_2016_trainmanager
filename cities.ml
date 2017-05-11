@@ -32,6 +32,8 @@ module Cities : CITIES =
   type distance = (string * string * int);;
 
   let cities_distance = [
+                        ("Paris", "Lyon", 427);
+                        ("Dijon", "Lyon", 192);
                         ("Brest", "Rennes", 248);
                         ("Rennes", "Le Mans", 163);
                         ("Le Mans", "Nantes", 183);
@@ -40,6 +42,7 @@ module Cities : CITIES =
                         ("Lille", "Brussels", 106);
                         ("Lille","London",269);
                         ("Paris", "Lille", 225);
+                        ("Lyon", "Marseille", 325);
                         ("Brussels","Liege",104);
                         ("Paris", "Le Havre",230);
                         ("Liege","Cologne", 118);
@@ -48,8 +51,12 @@ module Cities : CITIES =
                         ("Dijon","Nancy", 226);
                         ("Nancy","Strasbourg",149);
                         ("Paris","Strasbourg",449);
+                        ("Dijon","Strasbourg",309);
                         ("Brussels","Amsterdam",211);
-                        ("Dijon","Strasbourg",309)
+                        ("Dijon","Strasbourg",309);
+                        ("Toulouse", "Bordeaux", 256);
+                        ("Montpellier", "Toulouse", 248);
+                        ("Marseille", "Montpellier", 176);
                         ]
 
   let get_departure (d, _, _) = d
@@ -88,5 +95,5 @@ module Cities : CITIES =
 
   let rec get_distance_link city_1 city_2 = function
     | [] -> 0
-    | head::tail -> if (city_1 = (get_departure head) && city_2 = (get_arrival head)) then get_distance head else get_distance_link city_1 city_2 tail
+    | head::tail -> if ( (city_1 = (get_departure head) && city_2 = (get_arrival head)) || (city_2 = (get_departure head) && city_1 = (get_arrival head))) then get_distance head else get_distance_link city_1 city_2 tail
 end;;

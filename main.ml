@@ -41,8 +41,7 @@ let check_argument list =
 in aux 0 list;;
 
 let check_command str train_list = match (List.nth str 0) with
-  | "create" -> let train_list = append_item train_list (MyTrip.create_whole (Train.create_train (List.nth str 1)) (MyTrip.create_trip (List.nth str 2) (List.nth str 3) (List.nth str 1) (Str.split (Str.regexp ",") (List.nth str 4)))) in
-    (print_string "Trip created: "; print_endline (Train.get_id (MyTrip.get_train (List.nth train_list 0) )) ); train_list
+  | "create" -> append_item train_list (MyTrip.create_whole (Train.create_train (List.nth str 1)) (MyTrip.create_trip (List.nth str 2) (List.nth str 3) (List.nth str 1) (Str.split (Str.regexp ",") (List.nth str 4))))
   | "list" -> MyTrip.print_whole_list train_list ; train_list
   | "delete" -> remove_trip train_list (List.nth str 1)
   | _ -> train_list
