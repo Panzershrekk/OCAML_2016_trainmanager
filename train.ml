@@ -16,7 +16,6 @@ module Train : TRAIN =
   struct
       type train = (string * string)
 
-
       let get_speed (t, _) = if t = "TGV" then 230 else
                              if t = "Thalys" then 210 else
                              if t = "Eurostar" then 160 else

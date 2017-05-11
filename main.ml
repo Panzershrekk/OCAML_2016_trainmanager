@@ -58,5 +58,5 @@ in
       train_manager train_list
 ;;
 
-let _  =
+let _  = Random.self_init() ;
 	train_manager [];;
