@@ -11,7 +11,7 @@ let empty = []
 
 let rec remove_trip l n = match l with
     | [] -> []
-    | head::tail -> if n = Train.get_id (MyTrip.get_train head) then tail else head::remove_trip tail (n);;
+    | head::tail -> if n = (Train.get_type (MyTrip.get_train head) ^ Train.get_id (MyTrip.get_train head)) then tail else head::remove_trip tail (n);;
 
 let rec print_my_list list_str = match list_str with
   | [] -> ()
