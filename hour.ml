@@ -35,8 +35,12 @@ module Hour : HOUR =
   let calculate_hour hour add = add_hour ((string_to_int_cmp (List.hd hour) ~-1) + ((add + (string_to_int_cmp (List.nth hour 1) ~-1)) / 60)) ^ ":" ^
                                 add_minute (((string_to_int_cmp (List.nth hour 1) ~-1) + add) mod 60);;
 
-  let calculate_hour_with_distance hour distance train = if train = "TGV"  then calculate_hour (Str.split (Str.regexp ":") hour) (int_of_float (round_value ((float_of_int distance) /. 230.0 *. 60.0))) else
-                                                         if train = "Thalys"  then calculate_hour (Str.split (Str.regexp ":") hour) (int_of_float (round_value ((float_of_int distance) /. 210.0 *. 60.0))) else
-                                                         if train = "Eurostar"  then calculate_hour (Str.split (Str.regexp ":") hour) (int_of_float (round_value ((float_of_int distance) /. 160.0 *. 60.0)))
-                                                         else hour
+  let calculate_hour_with_distance hour distance train =
+      if train = "TGV"  then calculate_hour (Str.split (Str.regexp ":") hour)
+        (int_of_float (round_value ((float_of_int distance) /. 230.0 *. 60.0))) else
+      if train = "Thalys"  then calculate_hour (Str.split (Str.regexp ":") hour)
+        (int_of_float (round_value ((float_of_int distance) /. 210.0 *. 60.0))) else
+      if train = "Eurostar"  then calculate_hour (Str.split (Str.regexp ":") hour)
+        (int_of_float (round_value ((float_of_int distance) /. 160.0 *. 60.0)))
+      else hour
 end;;

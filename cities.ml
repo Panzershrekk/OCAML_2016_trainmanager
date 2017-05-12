@@ -63,9 +63,10 @@ module Cities : CITIES =
   let get_arrival (_, a, _) = a
   let get_distance (_, _, dis) = dis
 
-  let cities_available = ["Brest"; "Le Havre"; "Lille"; "Paris"; "Strasbourg"; "Nancy"; "Dijon"; "Lyon";
-                          "Nice"; "Marseille"; "Montpellier"; "Perpignan"; "Bordeaux";
-                          "Nantes"; "Avignon"; "Rennes"; "Biarritz"; "Toulouse"; "Le Mans"]
+  let cities_available = ["Brest"; "Le Havre"; "Lille"; "Paris"; "Strasbourg";
+                          "Nancy"; "Dijon"; "Lyon"; "Nice"; "Marseille";
+                          "Montpellier"; "Perpignan"; "Bordeaux"; "Nantes";
+                          "Avignon"; "Rennes"; "Biarritz"; "Toulouse"; "Le Mans"]
 
   let cities_available_for_thalys = ["Paris"; "Lille"; "Liege"; "Brussels"; "Amsterdam"; "Cologne"; "Essen"]
 
@@ -77,15 +78,18 @@ module Cities : CITIES =
 
   let rec city_exists city = match city with
     | [] -> true
-    | head::tail -> if (check_with_city head cities_available = true && city_exists tail = true) then true else false
+    | head::tail -> if (check_with_city head cities_available = true
+                    && city_exists tail = true) then true else false
 
   let rec city_exists_for_thalys city = match city with
     | [] -> true
-    | head::tail -> if (check_with_city head cities_available_for_thalys = true && city_exists_for_thalys tail = true) then true else false
+    | head::tail -> if (check_with_city head cities_available_for_thalys = true
+                    && city_exists_for_thalys tail = true) then true else false
 
   let rec city_exists_for_Eurostar city = match city with
     | [] -> true
-    | head::tail -> if (check_with_city head cities_available_for_Eurostar = true && city_exists_for_Eurostar tail = true) then true else false
+    | head::tail -> if (check_with_city head cities_available_for_Eurostar = true
+                    && city_exists_for_Eurostar tail = true) then true else false
 
   let cities_are_valid cities = city_exists (Str.split (Str.regexp ",") cities);;
 
@@ -95,6 +99,8 @@ module Cities : CITIES =
 
   let rec get_distance_link city_1 city_2 = function
     | [] -> 0
-    | head::tail -> if ( (city_1 = (get_departure head) && city_2 = (get_arrival head)) || (city_2 = (get_departure head) && city_1 = (get_arrival head))) then get_distance head else get_distance_link city_1 city_2 tail
+    | head::tail -> if ( (city_1 = (get_departure head) && city_2 = (get_arrival head))
+                    || (city_2 = (get_departure head) && city_1 = (get_arrival head)))
+                    then get_distance head else get_distance_link city_1 city_2 tail
 
 end;;

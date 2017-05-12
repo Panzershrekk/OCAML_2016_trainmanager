@@ -31,24 +31,40 @@ module MakeTrip : MAKETRIP = functor (Train : TRAIN) ->
 
     let create_t s a d = (s, a, d);;
 
-    let date_change date old_hour new_hour = if (int_of_string (List.nth (Str.split (Str.regexp ":") old_hour) 0)) > (int_of_string (List.nth (Str.split (Str.regexp ":") new_hour) 0)) then Date.calculate_date (Str.split (Str.regexp "-") date) 1 else date
+    let date_change date old_hour new_hour = if (int_of_string (List.nth (Str.split (Str.regexp ":") old_hour) 0)) >
+                                             (int_of_string (List.nth (Str.split (Str.regexp ":") new_hour) 0))
+                                             then Date.calculate_date (Str.split (Str.regexp "-") date) 1
+                                             else date
 
     let create_trip date hour train trip =
       let rec aux acc date hour = function
         | [] -> []
         | head::tail when acc = 1 -> let new_t = [create_t head " (,)" ( " (" ^ date ^ "," ^ hour ^ ")" )]
           in List.append new_t (aux (acc+1) date hour tail)
-        | head::tail when acc = List.length trip -> let new_t = [create_t head
-          ( " (" ^ (date_change date hour (Hour.calculate_hour_with_distance hour (Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance) train)) ^ "," ^
-          (Hour.calculate_hour_with_distance hour (Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance) train) ^ ")" )
-          ( " (,)" )]
+        | head::tail when acc = List.length trip ->
+          let new_t = [create_t head
+            ( " (" ^ (date_change date hour (Hour.calculate_hour_with_distance hour
+            (Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance) train)) ^ "," ^
+            (Hour.calculate_hour_with_distance hour (Cities.get_distance_link (List.nth trip (acc-2))
+            head Cities.cities_distance) train) ^ ")" ) ( " (,)" )]
           in List.append new_t (aux (acc+1) date hour tail)
-        | head::tail -> let new_t = [create_t head
-        ( " (" ^ (date_change date hour (Hour.calculate_hour_with_distance hour (Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance) train))
-          ^ "," ^ (Hour.calculate_hour_with_distance hour (Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance) train) ^ ")" )
-        ( " (" ^ (date_change date hour (Hour.calculate_hour ((Str.split (Str.regexp ":") (Hour.calculate_hour_with_distance hour ((Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance)) train ))) 10)) ^
-        "," ^ (Hour.calculate_hour ((Str.split (Str.regexp ":") (Hour.calculate_hour_with_distance hour ((Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance)) train ))) 10) ^ ")" )]
-          in List.append new_t (aux (acc+1) (date_change date hour (Hour.calculate_hour ((Str.split (Str.regexp ":") (Hour.calculate_hour_with_distance hour ((Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance)) train ))) 10)) (Hour.calculate_hour ((Str.split (Str.regexp ":") (Hour.calculate_hour_with_distance hour ((Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance)) train))) 10) tail)
+        | head::tail ->
+          let new_t = [create_t head
+            ( " (" ^ (date_change date hour (Hour.calculate_hour_with_distance hour
+            (Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance) train))
+            ^ "," ^ (Hour.calculate_hour_with_distance hour
+            (Cities.get_distance_link (List.nth trip (acc-2))
+            head Cities.cities_distance) train) ^ ")" )
+            ( " (" ^ (date_change date hour (Hour.calculate_hour ((Str.split (Str.regexp ":")
+            (Hour.calculate_hour_with_distance hour ((Cities.get_distance_link (List.nth trip (acc-2))
+            head Cities.cities_distance)) train ))) 10)) ^ "," ^  (Hour.calculate_hour ((Str.split (Str.regexp ":")
+            (Hour.calculate_hour_with_distance hour ((Cities.get_distance_link (List.nth trip (acc-2))
+            head Cities.cities_distance)) train ))) 10) ^ ")" )]
+          in List.append new_t (aux (acc+1) (date_change date hour (Hour.calculate_hour
+            ((Str.split (Str.regexp ":") (Hour.calculate_hour_with_distance hour
+            ((Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance)) train ))) 10))
+            (Hour.calculate_hour ((Str.split (Str.regexp ":") (Hour.calculate_hour_with_distance hour
+            ((Cities.get_distance_link (List.nth trip (acc-2)) head Cities.cities_distance)) train))) 10) tail)
       in aux 1 date hour trip
 
     let print_trip (s, a, d) = print_string s; print_string a; print_endline d;;

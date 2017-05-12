@@ -1,9 +1,5 @@
 module type DATE =
   sig
-    val new_day : int
-    val new_month : int
-    val new_year : int
-
     val calculate_day : int -> int -> int -> int -> string
     val calculate_month : int -> int -> int -> int -> string
     val calculate_year : int -> int -> int -> int -> string

@@ -29,7 +29,8 @@ module Train : TRAIN =
 
       let random_between first_born snd_born = (Random.int (snd_born - first_born) + first_born)
 
-      let create_train type_train = let train = (type_train, string_of_int (random_between 1000 10000)) in ( print_string "Trip created: " ; print_train train ; train)
+      let create_train type_train = let train = (type_train, string_of_int (random_between 1000 10000))
+                                    in ( print_string "Trip created: " ; print_train train ; train)
 
       let rec print_all_train = function
         | [] -> ()

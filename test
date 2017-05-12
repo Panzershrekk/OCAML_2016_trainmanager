@@ -8,7 +8,7 @@ create TGV 26-01-2102 21:01 Lille,Paris,Strasbourg
 
 create TGV 10-05-2017 11:20 Brest,Rennes,Le Mans,Paris
 
-create TGV 01-02-2012 23:50  Paris,Lyon *GOOD*
+create TGV 1-02-2012 23:50  Paris,Lyon *GOOD*
 create      TGV       01-02-2012       23:10 Le Mans,Paris,Lyon
 create TGV 01-02-2012 19:39  Lyon,Paris
 create Eurostar 01-02-2012 19:39  Brest,Lille
@@ -18,16 +18,3 @@ create TGV 06-12-2012 01:62 tgv *BAD*
 create TGV 09-17-2012 19:39 tgv *BAD*
 create TGV 00-02-2012 19:39 tgv *BAD*
 create TGV 05-05-2012 00:00 tgv *GOOD*
-
-
-
-
-
-
-
-
-Lyon,Dijon 245
-Lyon,Marseille 900
-
-
-Paris,Lyon,Marseille
